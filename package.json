@@ -1,0 +1,21 @@
+{
+  "name": "{{.ProjectName}}",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "mobile"
+  ],
+  "scripts": {
+    "dev": "concurrently \"cd backend && go run ./cmd/server\" \"cd mobile && npm start\"",
+    "dev:mobile": "cd mobile && npm start",
+    "dev:backend": "cd backend && go run ./cmd/server",
+    "dev:ios": "cd mobile && npm run ios",
+    "dev:android": "cd mobile && npm run android",
+    "build:mobile": "cd mobile && npx expo export",
+    "install:mobile": "cd mobile && npm install",
+    "lint": "cd mobile && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

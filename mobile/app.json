@@ -5,13 +5,13 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "scheme": "{{.ProjectName}}",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "{{.ProjectName}}",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.{{.ProjectName}}.app"
@@ -24,10 +24,11 @@
       "package": "com.{{.ProjectName}}.app"
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiUrl": "${API_URL}"
+      "apiUrl": "http://localhost:8080"
     }
   }
 }
