@@ -9,9 +9,10 @@ import (
 
 // Config holds the application configuration
 type Config struct {
-	Port        string
-	SupabaseURL string
-	SupabaseKey string
+	Port             string
+	SupabaseURL      string
+	SupabaseKey      string
+	SupabaseJWTSecret string
 }
 
 // Load reads configuration from environment variables
@@ -20,9 +21,10 @@ func Load() (*Config, error) {
 	_ = godotenv.Load()
 
 	cfg := &Config{
-		Port:        getEnv("PORT", "8080"),
-		SupabaseURL: getEnv("SUPABASE_URL", ""),
-		SupabaseKey: getEnv("SUPABASE_KEY", ""),
+		Port:             getEnv("PORT", "8080"),
+		SupabaseURL:      getEnv("SUPABASE_URL", ""),
+		SupabaseKey:      getEnv("SUPABASE_KEY", ""),
+		SupabaseJWTSecret: getEnv("SUPABASE_JWT_SECRET", ""),
 	}
 
 	return cfg, nil
