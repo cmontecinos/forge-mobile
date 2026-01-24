@@ -8,6 +8,7 @@ import (
 	"github.com/{{.ProjectName}}/backend/internal/auth"
 	"github.com/{{.ProjectName}}/backend/internal/config"
 	custommw "github.com/{{.ProjectName}}/backend/internal/middleware"
+	"github.com/{{.ProjectName}}/backend/internal/repository"
 	"github.com/{{.ProjectName}}/backend/internal/supabase"
 )
 
@@ -17,6 +18,7 @@ type Server struct {
 	config      *config.Config
 	supabase    *supabase.Client
 	authHandler *auth.Handler
+	itemHandler *ItemHandler
 	jwtConfig   custommw.JWTConfig
 }
 
@@ -35,6 +37,12 @@ func New(cfg *config.Config) *Server {
 	// Initialize auth handler
 	authHandler := auth.NewHandler(supabaseClient)
 
+	// Initialize repositories
+	itemRepo := repository.NewItemRepository(supabaseClient)
+
+	// Initialize item handler
+	itemHandler := NewItemHandler(itemRepo)
+
 	// JWT configuration for protected routes
 	jwtConfig := custommw.JWTConfig{
 		JWTSecret: cfg.SupabaseJWTSecret,
@@ -45,6 +53,7 @@ func New(cfg *config.Config) *Server {
 		config:      cfg,
 		supabase:    supabaseClient,
 		authHandler: authHandler,
+		itemHandler: itemHandler,
 		jwtConfig:   jwtConfig,
 	}
 }

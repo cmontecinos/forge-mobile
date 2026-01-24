@@ -24,13 +24,15 @@ func (s *Server) bindRoutes() {
 	// API v1 group (protected routes with JWT auth)
 	api := s.echo.Group("/api/v1", custommw.JWTAuth(s.jwtConfig))
 
-	// TODO: Add your protected routes here
-	// Example:
-	// api.GET("/users", s.getUsers)
-	// api.POST("/users", s.createUser)
-	// Access user in handlers with: custommw.GetUserID(c), custommw.GetUserEmail(c)
+	// Item routes
+	api.GET("/items", s.itemHandler.ListItems)
+	api.GET("/items/:id", s.itemHandler.GetItem)
+	api.POST("/items", s.itemHandler.CreateItem)
+	api.PATCH("/items/:id", s.itemHandler.UpdateItem)
+	api.DELETE("/items/:id", s.itemHandler.DeleteItem)
 
-	_ = api // Placeholder to avoid unused variable error
+	// TODO: Add more protected routes here
+	// Access user in handlers with: custommw.GetUserID(c), custommw.GetUserEmail(c)
 }
 
 // healthCheck returns the server health status
